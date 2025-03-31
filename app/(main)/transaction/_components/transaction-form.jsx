@@ -31,7 +31,7 @@ import { createTransaction, updateTransaction } from "@/actions/transaction";
 import { transactionSchema } from "@/app/lib/schema";
 import { ReceiptScanner } from "./receipt-scanner";
 
-export  function AddTransactionForm({
+export function AddTransactionForm({
   accounts,
   categories,
   editMode = false,
@@ -40,8 +40,6 @@ export  function AddTransactionForm({
   const router = useRouter();
   const searchParams = useSearchParams();
   const editId = searchParams.get("edit") || null;
-  
-
 
   const {
     register,
@@ -89,11 +87,12 @@ export  function AddTransactionForm({
       amount: parseFloat(data.amount),
     };
 
-    if (editMode) {
-      transactionFn(editId, formData);
-    } else {
-      transactionFn(formData);
-    }
+    // if (editMode) {
+    //   transactionFn(editId, formData);
+    // } else {
+    //   transactionFn(formData);
+    // }
+     transactionFn(formData);
   };
 
   const handleScanComplete = (scannedData) => {
@@ -113,9 +112,10 @@ export  function AddTransactionForm({
   useEffect(() => {
     if (transactionResult?.success && !transactionLoading) {
       toast.success(
-        editMode
-          ? "Transaction updated successfully"
-          : "Transaction created successfully"
+        // editMode
+        //   ? "Transaction updated successfully"
+        //   : "Transaction created successfully"
+        "Transaction created successfully"
       );
       reset();
       router.push(`/account/${transactionResult.data.accountId}`);
@@ -317,16 +317,7 @@ export  function AddTransactionForm({
           Cancel
         </Button>
         <Button type="submit" className="w-full" disabled={transactionLoading}>
-          {transactionLoading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              {editMode ? "Updating..." : "Creating..."}
-            </>
-          ) : editMode ? (
-            "Update Transaction"
-          ) : (
-            "Create Transaction"
-          )}
+          Create Transaction
         </Button>
       </div>
     </form>

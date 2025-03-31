@@ -23,7 +23,7 @@ const Header = async () => {
           <Image
             src={"/logo.png"}
             alt="profitpulse-logo"
-            height={60}
+            height={120}
             width={200}
             className="h-15 w-auto object-contain"
           />
